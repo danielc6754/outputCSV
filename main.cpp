@@ -14,11 +14,45 @@ bool fileExist(const std::string& filename) {
 
 int main() {
 	
-	if (fileExist("damageCalc.csv")) {
-		printf("Found");
+	string name = "damageCalc.csv";
+
+	// Only run data function if file exists
+	if (fileExist(name)) {
+
+		// Create some data points
+
+
+		ofstream myfile;
+		myfile.open(name);
+
+		myfile << "STR, CON, ";
+
+		// Generate data here
+		for (int i = 1; i < 101; i++) {
+			myfile << i << ",";
+		}
+
+		myfile << "\n";
+
+		for (int con = 0; con < 101; con++) {
+			myfile << "," << con << ",";
+			for (int str = 1; str < 101; str++) {
+				int dmg = con - str;
+				if (dmg > 0)
+					dmg = 0;
+
+				myfile << dmg << ",";
+			}
+
+			myfile << "\n";
+		}
+
+		myfile.close();
 	}
 
 	else {
 		printf("Error");
 	}
+
+	return 0;
 }
